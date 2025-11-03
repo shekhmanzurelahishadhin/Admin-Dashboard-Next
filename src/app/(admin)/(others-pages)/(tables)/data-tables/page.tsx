@@ -3,121 +3,177 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/tables/DataTable";
 import Badge from "@/components/ui/badge/Badge";
+import Image from "next/image";
 
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  status: "active" | "inactive";
-  createdAt: string;
-};
+interface Order {
+  id: number;
+  user: {
+    image: string;
+    name: string;
+    role: string;
+  };
+  projectName: string;
+  team: {
+    images: string[];
+  };
+  status: string;
+  budget: string;
+}
 
-const columns: ColumnDef<User>[] = [
+const tableData: Order[] = [
   {
-    accessorKey: "id",
-    header: "ID",
-  },
-  {
-    accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => {
-      return <div className="font-medium">{row.getValue("name")}</div>;
+    id: 1,
+    user: {
+      image: "/images/user/user-17.jpg",
+      name: "Lindsey Curtis",
+      role: "Web Designer",
     },
+    projectName: "Agency Website",
+    team: {
+      images: [
+        "/images/user/user-22.jpg",
+        "/images/user/user-23.jpg",
+        "/images/user/user-24.jpg",
+      ],
+    },
+    budget: "3.9K",
+    status: "Active",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    id: 2,
+    user: {
+      image: "/images/user/user-18.jpg",
+      name: "Kaiya George",
+      role: "Project Manager",
+    },
+    projectName: "Technology",
+    team: {
+      images: ["/images/user/user-25.jpg", "/images/user/user-26.jpg"],
+    },
+    budget: "24.9K",
+    status: "Pending",
   },
   {
-    accessorKey: "role",
-    header: "Role",
+    id: 3,
+    user: {
+      image: "/images/user/user-17.jpg",
+      name: "Zain Geidt",
+      role: "Content Writing",
+    },
+    projectName: "Blog Writing",
+    team: {
+      images: ["/images/user/user-27.jpg"],
+    },
+    budget: "12.7K",
+    status: "Active",
+  },
+  {
+    id: 4,
+    user: {
+      image: "/images/user/user-20.jpg",
+      name: "Abram Schleifer",
+      role: "Digital Marketer",
+    },
+    projectName: "Social Media",
+    team: {
+      images: [
+        "/images/user/user-28.jpg",
+        "/images/user/user-29.jpg",
+        "/images/user/user-30.jpg",
+      ],
+    },
+    budget: "2.8K",
+    status: "Cancel",
+  },
+  {
+    id: 5,
+    user: {
+      image: "/images/user/user-21.jpg",
+      name: "Carla George",
+      role: "Front-end Developer",
+    },
+    projectName: "Website",
+    team: {
+      images: [
+        "/images/user/user-31.jpg",
+        "/images/user/user-32.jpg",
+        "/images/user/user-33.jpg",
+      ],
+    },
+    budget: "4.5K",
+    status: "Active",
+  },
+];
+
+const columns: ColumnDef<Order>[] = [
+  {
+    accessorKey: "user",
+    header: "User",
     cell: ({ row }) => {
-      const role = row.getValue("role") as string;
+      const user = row.original.user;
       return (
-        <Badge 
-          color={role === "Admin" ? "primary" : "info"}
-          variant="light"
-          size="sm"
-        >
-          {role}
-        </Badge>
+        <div className="flex items-center gap-3">
+          <Image
+            src={user.image}
+            alt={user.name}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+          <div>
+            <p className="font-medium text-black dark:text-white">
+              {user.name}
+            </p>
+            <p className="text-sm text-gray-500">{user.role}</p>
+          </div>
+        </div>
       );
     },
+  },
+  {
+    accessorKey: "projectName",
+    header: "Project",
+  },
+  {
+    accessorKey: "team",
+    header: "Team",
+    cell: ({ row }) => (
+      <div className="flex -space-x-2">
+        {row.original.team.images.map((img, index) => (
+          <Image
+            key={index}
+            src={img}
+            alt="team member"
+            width={30}
+            height={30}
+            className="rounded-full border-2 border-white dark:border-boxdark"
+          />
+        ))}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "budget",
+    header: "Budget",
+    cell: ({ row }) => (
+      <span className="font-medium text-gray-700 dark:text-gray-300">
+        ${row.original.budget}
+      </span>
+    ),
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status") as string;
-      return (
-        <Badge 
-          color={status === "active" ? "success" : "error"}
-          variant="light"
-          size="sm"
-        >
-          {status}
-        </Badge>
-      );
+      const status = row.original.status;
+      const color =
+        status === "Active"
+          ? "green"
+          : status === "Pending"
+          ? "yellow"
+          : "red";
+      return <Badge color={color}>{status}</Badge>;
     },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Created At",
-    cell: ({ row }) => {
-      return new Date(row.getValue("createdAt")).toLocaleDateString();
-    },
-  },
-];
-
-const data: User[] = [
-  {
-    id: "1",
-    name: "John Doe",
-    email: "john@example.com",
-    role: "Admin",
-    status: "active",
-    createdAt: "2023-01-15",
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    email: "jane@example.com",
-    role: "User",
-    status: "active",
-    createdAt: "2023-02-20",
-  },
-  {
-    id: "3",
-    name: "Bob Johnson",
-    email: "bob@example.com",
-    role: "Editor",
-    status: "inactive",
-    createdAt: "2023-03-10",
-  },
-  {
-    id: "4",
-    name: "Alice Brown",
-    email: "alice@example.com",
-    role: "User",
-    status: "active",
-    createdAt: "2023-04-05",
-  },
-  {
-    id: "5",
-    name: "Charlie Wilson",
-    email: "charlie@example.com",
-    role: "Admin",
-    status: "active",
-    createdAt: "2023-05-12",
-  },
-  {
-    id: "6",
-    name: "Diana Lee",
-    email: "diana@example.com",
-    role: "User",
-    status: "inactive",
-    createdAt: "2023-06-18",
   },
 ];
 
@@ -132,9 +188,9 @@ export default function TablesPage() {
           Advanced data tables with sorting, filtering and pagination
         </p>
       </div>
-      
-      <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <DataTable columns={columns} data={data} searchKey="name" />
+
+      <div className="rounded-sm border border-stroke p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+        <DataTable columns={columns} data={tableData} searchKey="user.name" />
       </div>
     </div>
   );
