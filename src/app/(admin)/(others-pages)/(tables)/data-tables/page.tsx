@@ -4,6 +4,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/tables/DataTable";
 import Badge from "@/components/ui/badge/Badge";
 import Image from "next/image";
+import PageBreadcrumb from "@/components/common/PageBreadCrumb";
+import ComponentCard from "@/components/common/ComponentCard";
 
 interface Order {
   id: number;
@@ -179,18 +181,12 @@ const columns: ColumnDef<Order>[] = [
 
 export default function TablesPage() {
   return (
-    <div className="p-4 md:p-6">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-black dark:text-white">
-          Data Tables
-        </h2>
-        <p className="text-body dark:text-bodydark">
-          Advanced data tables with sorting, filtering and pagination
-        </p>
-      </div>
-
-      <div className="rounded-sm border border-stroke p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <DataTable columns={columns} data={tableData} searchKey="user.name" />
+    <div>
+      <PageBreadcrumb pageTitle="Data Table" />
+      <div className="space-y-6">
+        <ComponentCard title="Basic Table 1">
+          <DataTable columns={columns} data={tableData} searchKey="user" />
+        </ComponentCard>
       </div>
     </div>
   );

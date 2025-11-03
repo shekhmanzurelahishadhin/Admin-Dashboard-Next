@@ -26,7 +26,7 @@ export function DataTablePagination<TData>({
           <select
             value={table.getState().pagination.pageSize}
             onChange={(e) => table.setPageSize(Number(e.target.value))}
-            className="h-8 w-[60px] rounded border border-stroke bg-white px-1 text-sm
+            className="h-8 w-[60px] rounded border text-gray-500 border-stroke px-1 text-sm
               dark:border-strokedark dark:bg-boxdark"
           >
             {[2, 5, 10, 20, 30, 40, 50].map((pageSize) => (
