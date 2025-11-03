@@ -22,6 +22,13 @@ interface Order {
   budget: string;
 }
 
+// Flatten the data for easier searching
+interface FlattenedOrder extends Order {
+  userName: string;
+  userRole: string;
+  userImage: string;
+}
+
 const tableData: Order[] = [
   {
     id: 1,
@@ -107,26 +114,39 @@ const tableData: Order[] = [
   },
 ];
 
-const columns: ColumnDef<Order>[] = [
+
+// Flatten the data
+const flattenedData: FlattenedOrder[] = tableData.map(order => ({
+  ...order,
+  userName: order.user.name,
+  userRole: order.user.role,
+  userImage: order.user.image,
+}));
+
+const columns: ColumnDef<FlattenedOrder>[] = [
   {
-    accessorKey: "user",
+    accessorKey: "userName",
     header: "User",
     cell: ({ row }) => {
       const user = row.original.user;
       return (
         <div className="flex items-center gap-3">
-          <Image
-            src={user.image}
-            alt={user.name}
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
+          <div className="w-10 h-10 overflow-hidden rounded-full">
+            <Image
+              width={40}
+              height={40}
+              src={user.image}
+              alt={user.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
           <div>
-            <p className="font-medium text-black dark:text-white">
+            <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
               {user.name}
-            </p>
-            <p className="text-sm text-gray-500">{user.role}</p>
+            </span>
+            <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
+              {user.role}
+            </span>
           </div>
         </div>
       );
@@ -134,47 +154,71 @@ const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: "projectName",
-    header: "Project",
+    header: "Project Name",
+    cell: ({ row }) => {
+      return (
+        <span className="text-gray-800 dark:text-white/90">
+          {row.getValue("projectName")}
+        </span>
+      );
+    },
   },
   {
     accessorKey: "team",
     header: "Team",
-    cell: ({ row }) => (
-      <div className="flex -space-x-2">
-        {row.original.team.images.map((img, index) => (
-          <Image
-            key={index}
-            src={img}
-            alt="team member"
-            width={30}
-            height={30}
-            className="rounded-full border-2 border-white dark:border-boxdark"
-          />
-        ))}
-      </div>
-    ),
-  },
-  {
-    accessorKey: "budget",
-    header: "Budget",
-    cell: ({ row }) => (
-      <span className="font-medium text-gray-700 dark:text-gray-300">
-        ${row.original.budget}
-      </span>
-    ),
+    cell: ({ row }) => {
+      const team = row.original.team;
+      return (
+        <div className="flex -space-x-2">
+          {team.images.map((teamImage, index) => (
+            <div
+              key={index}
+              className="w-6 h-6 overflow-hidden border-2 border-white rounded-full dark:border-gray-900"
+            >
+              <Image
+                width={24}
+                height={24}
+                src={teamImage}
+                alt={`Team member ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.original.status;
-      const color =
-        status === "Active"
-          ? "green"
-          : status === "Pending"
-          ? "yellow"
-          : "red";
-      return <Badge color={color}>{status}</Badge>;
+      const status = row.getValue("status") as string;
+      return (
+        <Badge
+          size="sm"
+          color={
+            status === "Active"
+              ? "success"
+              : status === "Pending"
+              ? "warning"
+              : "error"
+          }
+          variant="light"
+        >
+          {status}
+        </Badge>
+      );
+    },
+  },
+  {
+    accessorKey: "budget",
+    header: "Budget",
+    cell: ({ row }) => {
+      return (
+        <span className="font-medium text-gray-800 dark:text-white/90">
+          {row.getValue("budget")}
+        </span>
+      );
     },
   },
 ];
@@ -185,7 +229,8 @@ export default function TablesPage() {
       <PageBreadcrumb pageTitle="Data Table" />
       <div className="space-y-6">
         <ComponentCard title="Basic Table 1">
-          <DataTable columns={columns} data={tableData} searchKey="user" />
+          {/* Now search by userName which is a flat property */}
+          <DataTable columns={columns} data={flattenedData} searchKey="userName" />
         </ComponentCard>
       </div>
     </div>
