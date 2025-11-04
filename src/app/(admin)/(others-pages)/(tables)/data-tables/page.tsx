@@ -190,6 +190,9 @@ const columns: ColumnDef<FlattenedOrder>[] = [
     header: "Team",
     enableSorting: false,
     // No meta.filterVariant - this column won't have a filter
+      meta: {
+      filterVariant: "none", // No filter
+    },
     cell: ({ row }) => {
       const team = row.original.team;
       return (

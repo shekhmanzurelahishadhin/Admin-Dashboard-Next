@@ -26,7 +26,7 @@ import { DataTableToolbar } from "./DataTableToolbar";
 
 declare module "@tanstack/react-table" {
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: "text" | "select";
+    filterVariant?: "text" | "select" | "none";
   }
 }
 
@@ -76,6 +76,8 @@ export function DataTable<TData, TValue>({
                     {headerGroup.headers.map((header) => {
                       const canSort = header.column.getCanSort();
                       const isSorted = header.column.getIsSorted();
+                      const canFilter = header.column.getCanFilter();
+                      const { filterVariant } = header.column.columnDef.meta ?? {};
                       
                       return (
                         <TableCell
@@ -142,8 +144,8 @@ export function DataTable<TData, TValue>({
                                 )}
                               </div>
                               
-                              {/* Filter under header */}
-                              {header.column.getCanFilter() && (
+                              {/* Filter under header - only show if filterVariant is not "none" */}
+                              {canFilter && filterVariant !== "none" && (
                                 <div className="flex justify-start">
                                   <Filter column={header.column} />
                                 </div>
@@ -229,7 +231,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
       <select
         value={value as string}
         onChange={(e) => setValue(e.target.value)}
-        className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke px-2 text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300"
+        className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke bg-white px-2 text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300"
       >
         <option value="">All</option>
         {uniqueValues.map((value) => (
@@ -248,7 +250,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
       value={value as string}
       onChange={(e) => setValue(e.target.value)}
       placeholder={`Filter...`}
-      className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke px-2 text-gray-700 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300 dark:placeholder-gray-500"
+      className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke bg-white px-2 text-gray-700 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300 dark:placeholder-gray-500"
     />
   );
 }
