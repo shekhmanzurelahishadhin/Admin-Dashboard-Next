@@ -231,7 +231,7 @@ export default function TablesPage() {
       <div className="space-y-6">
         <ComponentCard title="Basic Table 1">
           {/* Now search by userName which is a flat property */}
-          <DataTable columns={columns} data={flattenedData} searchKey="userName" />
+          <DataTable columns={columns} data={flattenedData} searchKey="userName" filterableColumns={["userRole", "status", "projectName"]}  />
         </ComponentCard>
       </div>
     </div>
