@@ -114,7 +114,6 @@ const tableData: Order[] = [
   },
 ];
 
-
 // Flatten the data
 const flattenedData: FlattenedOrder[] = tableData.map(order => ({
   ...order,
@@ -127,6 +126,10 @@ const columns: ColumnDef<FlattenedOrder>[] = [
   {
     accessorKey: "userName",
     header: "User",
+    enableSorting: true,
+    meta: {
+      filterVariant: "text", // Text input filter
+    },
     cell: ({ row }) => {
       const user = row.original.user;
       return (
@@ -155,6 +158,10 @@ const columns: ColumnDef<FlattenedOrder>[] = [
   {
     accessorKey: "projectName",
     header: "Project Name",
+    enableSorting: true,
+    meta: {
+      filterVariant: "select", // Select dropdown filter
+    },
     cell: ({ row }) => {
       return (
         <span className="text-gray-800 dark:text-white/90">
@@ -164,9 +171,25 @@ const columns: ColumnDef<FlattenedOrder>[] = [
     },
   },
   {
+    accessorKey: "userRole",
+    header: "Role",
+    enableSorting: true,
+    meta: {
+      filterVariant: "select", // Select dropdown filter
+    },
+    cell: ({ row }) => {
+      return (
+        <span className="text-gray-600 dark:text-gray-400">
+          {row.getValue("userRole")}
+        </span>
+      );
+    },
+  },
+  {
     accessorKey: "team",
     header: "Team",
     enableSorting: false,
+    // No meta.filterVariant - this column won't have a filter
     cell: ({ row }) => {
       const team = row.original.team;
       return (
@@ -192,6 +215,10 @@ const columns: ColumnDef<FlattenedOrder>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    enableSorting: true,
+    meta: {
+      filterVariant: "select", // Select dropdown filter
+    },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
       return (
@@ -214,6 +241,10 @@ const columns: ColumnDef<FlattenedOrder>[] = [
   {
     accessorKey: "budget",
     header: "Budget",
+    enableSorting: true,
+    meta: {
+      filterVariant: "text", // Text input filter
+    },
     cell: ({ row }) => {
       return (
         <span className="font-medium text-gray-800 dark:text-white/90">
@@ -227,11 +258,14 @@ const columns: ColumnDef<FlattenedOrder>[] = [
 export default function TablesPage() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Data Table" />
+      <PageBreadcrumb pageTitle="Data Table with Column Filters" />
       <div className="space-y-6">
-        <ComponentCard title="Basic Table 1">
-          {/* Now search by userName which is a flat property */}
-          <DataTable columns={columns} data={flattenedData} searchKey="userName" filterableColumns={["userRole", "status", "projectName"]}  />
+        <ComponentCard title="Advanced Data Table with Column Filters">
+          <DataTable 
+            columns={columns} 
+            data={flattenedData} 
+            searchKey="userName" 
+          />
         </ComponentCard>
       </div>
     </div>
