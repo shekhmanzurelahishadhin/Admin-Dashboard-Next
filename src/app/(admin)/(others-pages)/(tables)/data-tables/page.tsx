@@ -166,6 +166,7 @@ const columns: ColumnDef<FlattenedOrder>[] = [
   {
     accessorKey: "team",
     header: "Team",
+    enableSorting: false,
     cell: ({ row }) => {
       const team = row.original.team;
       return (
