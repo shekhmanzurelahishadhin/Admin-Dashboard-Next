@@ -175,7 +175,7 @@ const columns: ColumnDef<FlattenedOrder>[] = [
     header: "Role",
     enableSorting: true,
     meta: {
-      filterVariant: "select", // Select dropdown filter
+      filterVariant: "text", // Select dropdown filter
     },
     cell: ({ row }) => {
       return (
