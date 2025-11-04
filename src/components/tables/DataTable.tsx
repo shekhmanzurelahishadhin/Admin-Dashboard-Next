@@ -231,7 +231,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
       <select
         value={value as string}
         onChange={(e) => setValue(e.target.value)}
-        className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke bg-white px-2 text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300"
+        className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke px-2 text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300"
       >
         <option value="">All</option>
         {uniqueValues.map((value) => (
@@ -250,7 +250,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
       value={value as string}
       onChange={(e) => setValue(e.target.value)}
       placeholder={`Filter...`}
-      className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke bg-white px-2 text-gray-700 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300 dark:placeholder-gray-500"
+      className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke px-2 text-gray-700 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300 dark:placeholder-gray-500"
     />
   );
 }
