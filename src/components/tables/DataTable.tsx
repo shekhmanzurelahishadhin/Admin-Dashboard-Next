@@ -71,92 +71,106 @@ export function DataTable<TData, TValue>({
             <Table>
               {/* Table Header */}
               <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      const canSort = header.column.getCanSort(); // Check if column is sortable
-                      const isSorted = header.column.getIsSorted(); // "asc", "desc", or false
-                      const canFilter = header.column.getCanFilter(); // Check if column is filterable
+                {/* Header Row */}
+                <TableRow>
+                  {table.getHeaderGroups()[0].headers.map((header) => {
+                    const canSort = header.column.getCanSort();
+                    const isSorted = header.column.getIsSorted();
+                    
+                    return (
+                      <TableCell
+                        key={header.id}
+                        isHeader
+                        className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                      >
+                        <div
+                          className={`flex items-center space-x-2 ${
+                            canSort ? "cursor-pointer select-none group" : ""
+                          }`}
+                          onClick={
+                            canSort
+                              ? header.column.getToggleSortingHandler()
+                              : undefined
+                          }
+                        >
+                          <span className="transition-colors group-hover:text-gray-700 dark:group-hover:text-gray-300">
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                          </span>
+                          {canSort && (
+                            <div className="flex flex-col space-y-[-2px]">
+                              <svg
+                                className={`h-3 w-3 transition-colors ${
+                                  isSorted === "asc"
+                                    ? "text-primary dark:text-primary"
+                                    : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-400"
+                                }`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M5 15l7-7 7 7"
+                                />
+                              </svg>
+                              <svg
+                                className={`h-3 w-3 transition-colors ${
+                                  isSorted === "desc"
+                                    ? "text-primary dark:text-primary"
+                                    : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-400"
+                                }`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+
+                {/* Filter Row - Only show if any column has filters */}
+                {(table.getHeaderGroups()[0].headers.some(header => {
+                  const canFilter = header.column.getCanFilter();
+                  const { filterVariant } = header.column.columnDef.meta ?? {};
+                  return canFilter && filterVariant !== "none";
+                })) && (
+                  <TableRow>
+                    {table.getHeaderGroups()[0].headers.map((header) => {
+                      const canFilter = header.column.getCanFilter();
                       const { filterVariant } = header.column.columnDef.meta ?? {};
+                      const showFilter = canFilter && filterVariant !== "none";
                       
                       return (
                         <TableCell
                           key={header.id}
                           isHeader
-                          className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                          className="text-start px-5 py-2 bg-gray-50 dark:bg-gray-900/20"
                         >
-                          {header.isPlaceholder ? null : (
-                            <div className="space-y-2">
-                              {/* Header with sorting */}
-                              <div
-                                className={`flex items-center space-x-2 ${
-                                  canSort ? "cursor-pointer select-none group" : ""
-                                }`}
-                                onClick={
-                                  canSort
-                                    ? header.column.getToggleSortingHandler()
-                                    : undefined
-                                }
-                              >
-                                <span className="transition-colors group-hover:text-gray-700 dark:group-hover:text-gray-300">
-                                  {flexRender(
-                                    header.column.columnDef.header,
-                                    header.getContext()
-                                  )}
-                                </span>
-                                {canSort && (
-                                  <div className="flex flex-col space-y-[-2px]">
-                                    <svg
-                                      className={`h-3 w-3 transition-colors ${
-                                        isSorted === "asc"
-                                          ? "text-primary dark:text-primary"
-                                          : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-400"
-                                      }`}
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M5 15l7-7 7 7"
-                                      />
-                                    </svg>
-                                    <svg
-                                      className={`h-3 w-3 transition-colors ${
-                                        isSorted === "desc"
-                                          ? "text-primary dark:text-primary"
-                                          : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-400"
-                                      }`}
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M19 9l-7 7-7-7"
-                                      />
-                                    </svg>
-                                  </div>
-                                )}
-                              </div>
-                              
-                              {/* Filter under header - only show if filterVariant is not "none" */}
-                              {canFilter && filterVariant !== "none" && (
-                                <div className="flex justify-start">
-                                  <Filter column={header.column} />
-                                </div>
-                              )}
-                            </div>
+                          {showFilter ? (
+                            <Filter column={header.column} />
+                          ) : (
+                            <div className="h-7"></div> // Empty space for alignment
                           )}
                         </TableCell>
                       );
                     })}
                   </TableRow>
-                ))}
+                )}
               </TableHeader>
 
               {/* Table Body */}
@@ -197,7 +211,7 @@ export function DataTable<TData, TValue>({
   );
 }
 
-// Filter Component
+// Filter Component (same as above)
 function Filter({ column }: { column: Column<any, unknown> }) {
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
