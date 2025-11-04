@@ -74,9 +74,9 @@ export function DataTable<TData, TValue>({
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
-                      const canSort = header.column.getCanSort();
-                      const isSorted = header.column.getIsSorted();
-                      const canFilter = header.column.getCanFilter();
+                      const canSort = header.column.getCanSort(); // Check if column is sortable
+                      const isSorted = header.column.getIsSorted(); // "asc", "desc", or false
+                      const canFilter = header.column.getCanFilter(); // Check if column is filterable
                       const { filterVariant } = header.column.columnDef.meta ?? {};
                       
                       return (
@@ -233,9 +233,9 @@ function Filter({ column }: { column: Column<any, unknown> }) {
         onChange={(e) => setValue(e.target.value)}
         className="w-full max-w-[120px] text-xs h-7 rounded border border-stroke px-2 text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-strokedark dark:bg-boxdark dark:text-gray-300"
       >
-        <option value="">All</option>
+        <option className="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="">All</option>
         {uniqueValues.map((value) => (
-          <option key={value} value={value}>
+          <option className="text-gray-700 dark:bg-gray-900 dark:text-gray-400" key={value} value={value}>
             {value}
           </option>
         ))}
