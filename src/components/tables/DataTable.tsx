@@ -159,7 +159,7 @@ export function DataTable<TData, TValue>({
                         <TableCell
                           key={header.id}
                           isHeader
-                          className="text-start px-5 py-2 bg-gray-50 dark:bg-gray-900/20"
+                          className="text-start px-5 py-2"
                         >
                           {showFilter ? (
                             <Filter column={header.column} />
