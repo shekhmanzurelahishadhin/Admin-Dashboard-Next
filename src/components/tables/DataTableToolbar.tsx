@@ -110,6 +110,7 @@ export function DataTableToolbar<TData>({
           variant="outline"
           size="sm"
           onClick={handleCopy}
+          tooltip="Copy"
           className="h-10 border-stroke bg-white px-3 text-sm font-medium hover:bg-gray-50 dark:border-strokedark dark:bg-boxdark dark:hover:bg-gray-800"
         >
           <CopyIcon /> Copy
@@ -119,6 +120,7 @@ export function DataTableToolbar<TData>({
           variant="outline"
           size="sm"
           onClick={handleExportCSV}
+          tooltip="CSV"
           className="h-10 border-stroke bg-white px-3 text-sm font-medium hover:bg-gray-50 dark:border-strokedark dark:bg-boxdark dark:hover:bg-gray-800"
         >
           <FileIcon /> CSV
@@ -128,6 +130,7 @@ export function DataTableToolbar<TData>({
           variant="outline"
           size="sm"
           onClick={handleExportExcel}
+          tooltip="Excel"
           className="h-10 border-stroke bg-white px-3 text-sm font-medium hover:bg-gray-50 dark:border-strokedark dark:bg-boxdark dark:hover:bg-gray-800"
         >
           <GridIcon /> Excel
@@ -137,6 +140,7 @@ export function DataTableToolbar<TData>({
           variant="outline"
           size="sm"
           onClick={handleExportPDF}
+          tooltip="PDF"
           className="h-10 border-stroke bg-white px-3 text-sm font-medium hover:bg-gray-50 dark:border-strokedark dark:bg-boxdark dark:hover:bg-gray-800"
         >
           <DownloadIcon /> PDF
