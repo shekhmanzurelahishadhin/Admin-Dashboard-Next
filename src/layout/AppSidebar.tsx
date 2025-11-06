@@ -75,11 +75,11 @@ const navItems: NavItem[] = [
       { 
         name: "Form Elements", 
         path: "/form-elements",
-        subSubItems: [
-          { name: "Input", path: "/form-elements/input" },
-          { name: "Select", path: "/form-elements/select" },
-          { name: "Checkbox", path: "/form-elements/checkbox", new: true },
-        ]
+        // subSubItems: [
+        //   { name: "Input", path: "/form-elements/input" },
+        //   { name: "Select", path: "/form-elements/select" },
+        //   { name: "Checkbox", path: "/form-elements/checkbox", new: true },
+        // ]
       },
     ],
   },
