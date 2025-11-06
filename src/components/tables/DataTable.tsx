@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
+import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 
 declare module "@tanstack/react-table" {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -100,42 +101,22 @@ export function DataTable<TData, TValue>({
                             )}
                           </span>
                           {canSort && (
-                            <div className="flex flex-col space-y-[-2px]">
-                              <svg
-                                className={`h-3 w-3 transition-colors ${
-                                  isSorted === "asc"
-                                    ? "text-primary dark:text-primary"
-                                    : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-400"
-                                }`}
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M5 15l7-7 7 7"
-                                />
-                              </svg>
-                              <svg
-                                className={`h-3 w-3 transition-colors ${
-                                  isSorted === "desc"
-                                    ? "text-primary dark:text-primary"
-                                    : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-400"
-                                }`}
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M19 9l-7 7-7-7"
-                                />
-                              </svg>
-                            </div>
+                           <span className="flex flex-col gap-0.1">
+                            <FaCaretUp
+                              className={`h-2 w-2 transition-colors ${
+                                isSorted === "asc"
+                                  ? "text-primary dark:text-primary"
+                                  : "text-gray-500 dark:text-gray-400"
+                              }`}
+                            />
+                            <FaCaretDown
+                              className={`h-2 w-2 transition-colors ${
+                                isSorted === "desc"
+                                  ? "text-primary dark:text-primary"
+                                  : "text-gray-300 dark:text-gray-400/50"
+                              }`}
+                            />
+                          </span>
                           )}
                         </div>
                       </TableCell>
