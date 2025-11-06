@@ -52,7 +52,59 @@ import ChatIcon from "./chat.svg";
 import MoreDotIcon from "./more-dot.svg";
 import BellIcon from "./bell.svg";
 
+// React Icons imports
+import { 
+  FiHome, 
+  FiSettings, 
+  FiUser, 
+  FiCalendar,
+  FiPieChart,
+  FiGrid,
+  FiList,
+  FiFile,
+  FiMail,
+  FiBell,
+  FiMessageCircle,
+  FiLock,
+  FiEye,
+  FiEyeOff,
+  FiChevronDown,
+  FiChevronUp,
+  FiChevronLeft,
+  FiChevronRight,
+  FiDownload,
+  FiCopy,
+  FiEdit,
+  FiTrash,
+  FiDollarSign,
+  FiFolder,
+  FiVideo,
+  FiMusic,
+  FiBox,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiInfo
+} from 'react-icons/fi';
+
+import {
+  FaRegCircle,
+  FaRegCheckCircle,
+  FaBolt,
+  FaRegEnvelope,
+  FaRegUserCircle,
+  FaTable,
+  FaCubes,
+  FaPlug
+} from 'react-icons/fa';
+
+import {
+  HiOutlineDocument,
+  HiOutlineDotsHorizontal
+} from 'react-icons/hi';
+
+// Export both your SVG icons and React Icons
 export {
+  // Your existing SVG icons
   DownloadIcon,
   BellIcon,
   MoreDotIcon,
@@ -106,4 +158,50 @@ export {
   HorizontaLDots,
   ChevronUpIcon,
   ChatIcon,
+  
+  // React Icons - Feather
+  FiHome,
+  FiSettings,
+  FiUser,
+  FiCalendar,
+  FiPieChart,
+  FiGrid,
+  FiList,
+  FiFile,
+  FiMail,
+  FiBell,
+  FiMessageCircle,
+  FiLock,
+  FiEye,
+  FiEyeOff,
+  FiChevronDown,
+  FiChevronUp,
+  FiChevronLeft,
+  FiChevronRight,
+  FiDownload,
+  FiCopy,
+  FiEdit,
+  FiTrash,
+  FiDollarSign,
+  FiFolder,
+  FiVideo,
+  FiMusic,
+  FiBox,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiInfo,
+  
+  // React Icons - Font Awesome
+  FaRegCircle,
+  FaRegCheckCircle,
+  FaBolt,
+  FaRegEnvelope,
+  FaRegUserCircle,
+  FaTable,
+  FaCubes,
+  FaPlug,
+  
+  // React Icons - Heroicons
+  HiOutlineDocument,
+  HiOutlineDotsHorizontal
 };
