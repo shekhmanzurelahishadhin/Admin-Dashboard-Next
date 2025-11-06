@@ -738,3 +738,9 @@ span.flatpickr-weekday,
   opacity: 0.8;
   cursor: grabbing; /* Changes the cursor to indicate dragging */
 }
+
+.menu-item-icon-active svg,
+.menu-item-icon-inactive svg{
+  height: 24px;
+  width: 24px;
+}
