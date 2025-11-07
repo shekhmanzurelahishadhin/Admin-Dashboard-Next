@@ -55,7 +55,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">
+    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-99999">
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-gray-400/50 backdrop-blur-[32px]"
