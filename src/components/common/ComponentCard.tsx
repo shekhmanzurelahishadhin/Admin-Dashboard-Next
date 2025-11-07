@@ -26,8 +26,8 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
       className={`rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
     >
       {/* Card Header */}
-      <div className="flex items-start justify-between">
-        <div className="px-6 py-5">
+      <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
+        <div className="px-0 sm:px-6 pt-6 sm:py-5">
           <h3 className="text-base font-medium text-gray-800 dark:text-white/90">
             {title}
           </h3>
@@ -37,7 +37,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
             </p>
           )}
         </div>
-        <div className="px-6 py-5">
+        <div className="px-0 sm:px-6 pb-6 sm:py-5">
           {showAddButton && (
             <Button size="sm" onClick={openModal}>
               <FiPlus/> {buttonLabel}
