@@ -134,6 +134,7 @@ const othersItems: NavItem[] = [
         ]
       },
       { name: "Avatar", path: "/avatars", pro: false },
+      { name: "Modals", path: "/modals", pro: false },
     ],
   },
   {
