@@ -83,7 +83,8 @@ import {
   FiBox,
   FiCheckCircle,
   FiAlertCircle,
-  FiInfo
+  FiInfo,
+  FiPlus
 } from 'react-icons/fi';
 
 import {
@@ -190,6 +191,7 @@ export {
   FiCheckCircle,
   FiAlertCircle,
   FiInfo,
+  FiPlus,
   
   // React Icons - Font Awesome
   FaRegCircle,

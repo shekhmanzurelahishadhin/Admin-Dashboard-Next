@@ -6,7 +6,11 @@ import Badge from "@/components/ui/badge/Badge";
 import Image from "next/image";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import ComponentCard from "@/components/common/ComponentCard";
-
+import { useModal } from "@/hooks/useModal";
+import { Modal } from "@/components/ui/modal";
+import Label from "@/components/form/Label";
+import Input from "@/components/form/input/InputField";
+import Button from "@/components/ui/button/Button";
 interface Order {
   id: number;
   user: {
@@ -190,7 +194,7 @@ const columns: ColumnDef<FlattenedOrder>[] = [
     header: "Team",
     enableSorting: false,
     // No meta.filterVariant - this column won't have a filter
-      meta: {
+    meta: {
       filterVariant: "none", // No filter
     },
     cell: ({ row }) => {
@@ -231,8 +235,8 @@ const columns: ColumnDef<FlattenedOrder>[] = [
             status === "Active"
               ? "success"
               : status === "Pending"
-              ? "warning"
-              : "error"
+                ? "warning"
+                : "error"
           }
           variant="light"
         >
@@ -259,17 +263,77 @@ const columns: ColumnDef<FlattenedOrder>[] = [
 ];
 
 export default function TablesPage() {
+  const { isOpen, openModal, closeModal } = useModal();
+  const handleSave = () => {
+    // Handle save logic here
+    console.log("Saving changes...");
+    closeModal();
+  };
+
   return (
     <div>
       <PageBreadcrumb pageTitle="Data Table with Column Filters" />
       <div className="space-y-6">
-        <ComponentCard title="Advanced Data Table with Column Filters">
-          <DataTable 
-            columns={columns} 
-            data={flattenedData} 
-            searchKey="userName" 
+        <ComponentCard
+          title="Advanced Data Table with Column Filters"
+          desc="Advance Data Table with Column Filters"
+          showAddButton={true} 
+          buttonLabel="Add New"
+          openModal={openModal}
+        >
+          <DataTable
+            columns={columns}
+            data={flattenedData}
+            searchKey="userName"
           />
         </ComponentCard>
+        <Modal
+          isOpen={isOpen}
+          onClose={closeModal}
+          className="max-w-[584px] p-5 lg:p-10"
+        >
+          <form className="">
+            <h4 className="mb-6 text-lg font-medium text-gray-800 dark:text-white/90">
+              Personal Information
+            </h4>
+
+            <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
+              <div className="col-span-1">
+                <Label>First Name</Label>
+                <Input type="text" placeholder="Emirhan" />
+              </div>
+
+              <div className="col-span-1">
+                <Label>Last Name</Label>
+                <Input type="text" placeholder="Boruch" />
+              </div>
+
+              <div className="col-span-1">
+                <Label>Last Name</Label>
+                <Input type="email" placeholder="emirhanboruch55@gmail.com" />
+              </div>
+
+              <div className="col-span-1">
+                <Label>Phone</Label>
+                <Input type="text" placeholder="+09 363 398 46" />
+              </div>
+
+              <div className="col-span-1 sm:col-span-2">
+                <Label>Bio</Label>
+                <Input type="text" placeholder="Team Manager" />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end w-full gap-3 mt-6">
+              <Button size="sm" variant="outline" onClick={closeModal}>
+                Close
+              </Button>
+              <Button size="sm" onClick={handleSave}>
+                Save Changes
+              </Button>
+            </div>
+          </form>
+        </Modal>
       </div>
     </div>
   );
