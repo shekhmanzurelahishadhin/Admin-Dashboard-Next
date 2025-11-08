@@ -203,7 +203,7 @@ const columns: ColumnDef<FlattenedOrder>[] = [
         <div className="flex -space-x-2">
           {team.images.map((teamImage, index) => (
             <div
-              key={index}
+              key={index} // Use index as key since images might not be unique
               className="w-6 h-6 overflow-hidden border-2 border-white rounded-full dark:border-gray-900"
             >
               <Image
@@ -277,9 +277,9 @@ export default function TablesPage() {
         <ComponentCard
           title="Advanced Data Table with Column Filters"
           desc="Advance Data Table with Column Filters"
-          showAddButton={true} 
+          showAddButton={true} // Show the "Add New" button
           buttonLabel="Add New"
-          openModal={openModal}
+          openModal={openModal} // Function to open the modal
         >
           <DataTable
             columns={columns}
