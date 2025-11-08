@@ -40,10 +40,10 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button title={tooltip}
       className={`inline-flex items-center justify-center font-medium gap-2 rounded-lg transition ${className} ${
-        sizeClasses[size]
+        sizeClasses[size] // Apply size classes
       } ${variantClasses[variant]} ${
         disabled ? "cursor-not-allowed opacity-50" : ""
-      }`}
+      }`} // Apply variant classes
       onClick={onClick}
       disabled={disabled}
     >
