@@ -289,7 +289,7 @@ export default function TablesPage() {
         </ComponentCard>
         <Modal
           isOpen={isOpen}
-          onClose={closeModal}
+          onClose={closeModal} // Function to close the modal
           className="max-w-[584px] p-5 lg:p-10"
         >
           <form className="">
